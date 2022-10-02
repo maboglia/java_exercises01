@@ -1,0 +1,1115 @@
+public class Cane extends Animale {
+	
+	public void faiVerso(){
+		System.out.println("Bau!");
+	}
+}public abstract class Animale {
+	
+	public void mangia(){
+		System.out.println("Gnam!");
+	}
+	
+	public abstract void faiVerso();
+}public class Gatto extends Animale {
+	
+	public void faiVerso(){
+		System.out.println("Miao!");
+	}
+}public class Test {
+	
+	public static void main(String[] args){
+		Animale[] zoo = new Animale[3];
+		zoo[0] = new Gatto();
+		zoo[1] = new Cane();
+		zoo[2] = new Topo();
+		for(int i = 0; i < zoo.length; i++)
+			zoo[i].faiVerso();
+	}
+}public class Topo extends Animale {
+	
+	public void faiVerso(){
+		System.out.println("Squit!");
+	}
+}package com.example.java.model;
+
+public class Ligurian extends Olive {
+
+    public Ligurian() {
+        super(OliveName.LIGURIAN, OliveColor.BLACK, 5);
+    }
+
+}
+package com.example.java.model;
+
+public class Olive {
+
+    private OliveName name;
+    private OliveColor color;
+    private int oil;
+
+    public Olive(OliveName name, OliveColor color, int oil) {
+        this.name = name;
+        this.color = color;
+        this.oil = oil;
+    }
+
+    public OliveName getName() {
+        return name;
+    }
+
+    public void setName(OliveName name) {
+        this.name = name;
+    }
+
+    public OliveColor getColor() {
+        return color;
+    }
+
+    public void setColor(OliveColor color) {
+        this.color = color;
+    }
+
+    public int crush() {
+        System.out.println(name + ": " + oil + " units");
+        return oil;
+    }
+
+    public void setOil(int oil) {
+        this.oil = oil;
+    }
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
+
+}
+package com.example.java.model;
+
+public enum OliveColor {
+
+    PURPLE("Purple", 0x2E0854), BLACK("Black", 0x000000), GREEN("Green", 0x00FF00);
+
+    String name;
+    long color;
+
+    OliveColor(String name, long color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+package com.example.java.model;
+
+public class Kalamata extends Olive {
+
+    public Kalamata() {
+        super(OliveName.KALAMATA, OliveColor.PURPLE, 2);
+    }
+
+}
+package com.example.java.model;
+
+public enum OliveName {
+    KALAMATA("Kalamata"), LIGURIAN("Ligurian");
+
+    private String name;
+
+    OliveName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+package com.example.java;
+
+import com.example.java.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Olive> olives = new ArrayList<>();
+        olives.add(new Kalamata());
+        olives.add(new Kalamata());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+
+        Press press = new OlivePress();
+        press.setOil(5);
+        int totalOil = press.getOil(olives);
+
+        System.out.println("You got " + totalOil + " units of oil");
+
+//        Press p2 = new Press() {
+//            @Override
+//            public int getOil(List<Olive> olives) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public void setOil(int oil) {
+//
+//            }
+//        }
+
+    }
+
+}
+package com.example.java;
+
+import com.example.java.model.Olive;
+
+import java.util.List;
+
+public class OlivePress implements Press {
+
+    private int currentOil;
+
+	public int getOil(List<Olive> olives) {
+
+		int totalOil = currentOil;
+		for (Olive o : olives) {
+			totalOil += o.crush();
+		}
+
+		return totalOil;
+
+	}
+
+    @Override
+    public void setOil(int oil) {
+        currentOil = oil;
+    }
+
+}
+package com.example.java;
+
+import com.example.java.model.Olive;
+
+import java.util.List;
+
+public interface Press {
+
+    public int getOil(List<Olive> olives);
+    public void setOil(int oil);
+
+}
+public class A{
+	
+	public void prova(){
+		System.out.println("prova() di A");
+	}
+}public class B extends A{
+	
+	public void prova(){
+		System.out.println("prova() di B");
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		A a = new A();
+		B b = new B();
+		a.prova();
+		b.prova();
+	}
+}public class A{
+	
+	public final void prova(){
+		System.out.println("prova() di A");
+	}
+}public class B extends A{
+	
+	public void prova(){
+		System.out.println("prova() di B");
+	}
+}/* Programma che contiene la definizione
+   della classe Persona */
+public class Persona{
+	String nome;
+	String cognome;
+	
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+	
+	public void setCognome(String cognome){
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public void setMatricola(String matricola){
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		StudenteIngegneria s = new StudenteIngegneria();
+		s.setNome("Mauro");
+		s.setCognome("Bogliaccino");
+		s.setMatricola("123456");
+		s.setTipo("Informatica");
+		System.out.println("Nome: " + s.getNome());
+		System.out.println("Cognome: " + s.getCognome());
+		System.out.println("Matricola: " + s.getMatricola());
+		System.out.println("Ingegneria " + s.getTipo());				
+	}
+}/* Programma che estende la classe Studente */
+public class StudenteIngegneria extends Studente{
+	
+	String tipo;
+	
+	public void setTipo(String tipo){
+		this.tipo = tipo;
+	}
+	
+	public String getTipo(){
+		return tipo;
+	}
+}public class A{
+	
+	public void prova(){
+		System.out.println("prova() di A");
+	}
+}public class B extends A{
+	
+	public void prova(){
+		super.prova();
+		System.out.println("prova() di B");
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		B b = new B();
+		b.prova();
+	}
+}/* Programma che contiene la definizione
+   della classe Persona */
+public class Persona{
+	private String nome;
+	private String cognome;
+	
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+	
+	public void setCognome(String cognome){
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public void setMatricola(String matricola){
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+	
+	/* La seguente porzione di codice genera
+	   errore
+	public void stampaInformazioni(){
+		System.out.println(nome);
+		System.out.println(cognome);
+		System.out.println(matricola);
+	} */
+	
+	/* La seguente porzione di codice
+	   e' corretta */
+	public void stampaInformazioni(){
+		System.out.println(getNome());
+		System.out.println(getCognome());
+		System.out.println(matricola);
+	}
+}/* Programma che contiene la definizione
+   della classe Persona */
+public final class Persona{
+	String nome;
+	String cognome;
+	
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+	
+	public void setCognome(String cognome){
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public void setMatricola(String matricola){
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+}public class Cane implements Animale {
+	
+	public void faiVerso(){
+		System.out.println("Bau!");
+	}
+	
+	public void dimmiCiboPreferito(){
+		System.out.println("Carne!");
+	}
+}public interface Animale {
+	
+	public void faiVerso();
+	
+	public void dimmiCiboPreferito();
+	
+}public class Gatto implements Animale {
+	
+	public void faiVerso(){
+		System.out.println("Miao!");
+	}
+	
+	public void dimmiCiboPreferito(){
+		System.out.println("Pesce!");
+	}
+}public class Test{
+	public static void main(String[] args) {
+		Animale a1 = new Gatto();
+		Animale a2 = new Cane();
+		Animale a3 = new Topo();
+		System.out.println("- Gatto	- - - - - - - -");
+		a1.faiVerso();
+		a1.dimmiCiboPreferito();
+		System.out.println("- Cane	- - - - - - - -");
+		a2.faiVerso();
+		a2.dimmiCiboPreferito();
+		System.out.println("- Topo	- - - - - - - -");
+		a3.faiVerso();
+		a3.dimmiCiboPreferito();		
+	}
+}public class Topo implements Animale {
+	
+	public void faiVerso(){
+		System.out.println("Squit!");
+	}
+	
+	public void dimmiCiboPreferito(){
+		System.out.println("Formaggio!");
+	}
+}/* Programma che contiene la definizione
+   della classe Persona */
+public class Persona{
+	private String nome;
+	private String cognome;
+	
+	public Persona(String nome, String cognome){
+		this.nome = nome;
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public Studente(String nome, String cognome, String matricola){
+		super(nome,cognome);
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		Studente s = new Studente("Mauro","Bogliaccino","123456");	
+		System.out.println("Nome: " + s.getNome());
+		System.out.println("Cognome: " + s.getCognome());
+		System.out.println("Matricola: " + s.getMatricola());
+	}
+}public class A{
+	
+	private int x;
+	
+	public A(int x){
+		this.x = x;
+	}
+	
+	public int getX(){
+		return x;
+	}
+}public class B extends A{
+	
+	private int y;
+	
+	public B(int x, int y){
+		super(x);
+		this.y = y;		
+	}
+	
+	public int getY(){
+		return y;
+	}
+}public class Test{
+	public static void main(String[] args){
+		B b = new B(5, 7);
+		System.out.println("b.x = " + b.getX());
+		System.out.println("b.y = " + b.getY());		
+	}
+}public interface StrumentoMusicale {
+	
+	public void suona();
+	
+}public interface OggettoDiLegno {
+	
+	public void dimmiTipoLegno();
+	
+}public class Test {
+	
+	public static void main(String[] args) {
+		// Definisco un oggetto Chitarra usando
+		// un riferimento del medesimo tipo
+		Chitarra c = new Chitarra("Palissandro");
+		// Uso normalmente i metodi di Chitarra
+		c.suona();
+		c.dimmiTipoLegno();
+		// Passo ad un riferimento di tipo
+		// StrumentoMusicale
+		StrumentoMusicale s = c;
+		// Ora ho a disposizione solo suona();
+		s.suona();
+		// Passo ad un riferimento di tipo
+		// OggettoDiLegno
+		OggettoDiLegno o = c;
+		// Ora ho a disposizione solo
+		// dimmiTipoLegno()
+		o.dimmiTipoLegno();
+	}
+}public class Chitarra implements StrumentoMusicale, OggettoDiLegno {
+	
+	private String tipoLegno;
+	
+	public Chitarra(String tipoLegno){
+		this.tipoLegno = tipoLegno;
+	}
+	
+	//Richiesto da StrumentoMusicale
+	public void suona(){
+		System.out.println("Do Re Mi Fa Sol La Si");
+	}
+	
+	//Richiesto da OggettoDiLegno
+	public void dimmiTipoLegno(){
+		System.out.println(tipoLegno);
+	}
+}import java.io.*;
+import java.util.Vector;
+
+public class RegistroEtaCompleto {
+	
+	// nome del file in cui è salvato il registro
+	private String nomefile;
+	
+	// vettore che gestisce i dati letti dal registro
+	private Vector<NomeEta> dati = new Vector<NomeEta>();
+	
+	// flag per tenere traccia di modifiche non salvate su file
+	private boolean modificato=false;
+	
+	// costruttore: riceve il nome del file di registro come parametro
+	public RegistroEtaCompleto(String nomefile) {
+		this.nomefile = nomefile;
+		try {
+			ObjectInputStream file_input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(nomefile)));
+			// legge l'intero vettore da file
+			dati = (Vector<NomeEta>) file_input.readObject();
+			file_input.close();
+		} catch (FileNotFoundException e) {
+			// gestisce il caso in cui il file non sia presente (sarà creato poi...)
+			System.out.println("ATTENZIONE: Il file " + nomefile + " non esiste");
+			System.out.println("Sara' creato al primo salvataggio");
+			System.out.println();
+		} catch (ClassNotFoundException e) {
+			// gestisce il caso in cui il file non contenga un oggetto
+			System.out.println("ERRORE di lettura");
+			System.out.println(e);
+		} catch (IOException e) {
+			// gestisce altri errori di input/output
+			System.out.println("ERRORE di I/O");
+			System.out.println(e);
+		}
+	}
+	
+	// visualizza il contenuto del registro (il vettore) su schermo
+	public void visualizza() {
+		System.out.println();
+		if (dati.isEmpty())
+			System.out.println("Il registro e' vuoto!");
+		else {
+			System.out.println("REGISTRO DELLE ETA'");
+			for (NomeEta ne : dati)
+				System.out.println(ne);
+		}
+	}
+	
+	// consente di aggiungere una voce al registro
+	public void inserisciNuovo(String nome, int eta) {
+		NomeEta ne = new NomeEta(nome,eta);
+		if (dati.contains(ne)) {
+			System.out.println(nome + " già presente");
+		} else {
+			dati.add(ne);
+			modificato=true; // modifica non salvata
+		}
+	}
+	
+	// incrementa (di uno) l'eta di una persona nel vettore
+	// inoltre restituisce l'età aggiornata
+	public int incrementaEta(String nome) {
+		for (NomeEta ne: dati) {
+			if (ne.getNome().equals(nome)) {
+				ne.incrementaEta();
+				modificato = true; // modifica non salvata
+				return ne.getEta();
+			}
+		}
+		return -1;
+	}
+
+	// verifica se ci sono modifiche non salvate
+	public boolean daSalvare() {
+		return modificato;
+	}
+	
+	// salva il registro nel file
+	// restituisce true se il salvataggio è andato a buon fine
+	public boolean salva() {
+		if (daSalvare()) { // salva solo se necessario (se ci sono modifiche)
+			try {
+				ObjectOutputStream file_output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(nomefile)));
+				// salva l'intero oggetto (vettore) nel file
+				file_output.writeObject(dati);
+				file_output.close();
+				modificato = false; // le modifiche sono state salvate
+				return true;
+			} catch (IOException e) {
+				System.out.println("ERRORE di I/O");
+				System.out.println(e);
+				return false;
+			}		
+		} else return true;
+	}
+}
+import java.io.Serializable;
+
+// questa classe associa un nome a una età
+// implmenta Serializable per poter essere salvata su file
+public class NomeEta implements Serializable {
+	
+	// variabile statica richiesta da Serializable
+	static final long serialVersionUID = 1;
+
+	// variabili nome e eta, private!
+	private String nome;
+	private int eta;
+	
+	// costruttore
+	NomeEta(String nome, int eta) {
+		this.nome = nome;
+		this.eta = eta;
+	}
+	
+	// restituisce il nome
+	public String getNome(){
+		return nome;
+	}
+
+	// restituisce l'eta'
+	public int getEta(){
+		return eta;
+	}
+	
+	// incrementa l'eta' di uno
+	public void incrementaEta() {
+		eta++;
+	}
+
+	// rappresenta come una stringa
+	public String toString() {
+		return nome + " " + eta;
+	}
+	
+}
+import java.util.Scanner;
+
+public class GestioneRegistroEta {
+
+	public static void main(String[] args) {
+		
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Inserisci il nome del file di registro:");
+		String nomefile = input.nextLine();
+		System.out.println();
+		
+		// crea un registro usando il file indicato dall'utente
+		RegistroEtaCompleto registro = new RegistroEtaCompleto(nomefile);
+		
+		// menu
+		char scelta;
+		do {
+			System.out.println();
+			System.out.println("[V]isualizza registro");
+			System.out.println("[A]ggiungi elemento");
+			System.out.println("[I]ncrementa eta'");
+			System.out.println("[S]alva dati");
+			System.out.println("[E]sci");
+			
+			System.out.println();
+			System.out.print("Inserisci la tua scelta: ");
+			scelta = input.next().charAt(0);
+			input.nextLine();
+			
+			switch (scelta) {
+			case 'V' : // visualizza il contenuto del registro 
+				registro.visualizza(); 
+				break;
+			case 'A' : // aggiunge un elemento al registro
+				System.out.println("Inserisci nome:");
+				String nome = input.nextLine();
+				System.out.println("Inserisci eta':");
+				int eta = input.nextInt();
+				registro.inserisciNuovo(nome, eta);
+				break;
+			case 'I' : // incrementa l'eta di una persona
+				System.out.println("Inserisci nome:");
+				String n = input.nextLine();
+				int ris = registro.incrementaEta(n);
+				if (ris==-1)
+					System.out.println("Nominativo non trovato");
+				else
+					System.out.println("La nuova eta e' " + ris);
+				break;
+			case 'S' : // salva il registro
+				boolean tuttoOk = registro.salva();
+				if (tuttoOk)
+					System.out.println("Dati Salvati");
+				else
+					System.out.println("Problema durante il salvataggio");
+				break;
+			case 'E' : // esce dal programma
+				if (registro.daSalvare()) {
+					char risposta;
+					do {
+						System.out.println("Vuoi salvare le modifiche effettuate (S/N)?");
+						risposta = input.next().charAt(0);
+						input.nextLine();
+						if (risposta=='S') registro.salva();
+					} while (risposta!='S' && risposta!='N');
+				}
+			}
+		} while (scelta!='E');
+		
+		
+
+	}
+
+}
+public class C extends B {}public class A {}public class B extends A {}public class Test {
+	public static void main(String[] args){
+		A a1 = new A();
+		A a2 = new B();
+		A a3 = new C();		
+	System.out.println("a1 instanceof A: " + (a1 instanceof A));
+	System.out.println("a1 instanceof B: " + (a1 instanceof B));
+	System.out.println("a1 instanceof C: " + (a1 instanceof C));
+	System.out.println("a2 instanceof A: " + (a2 instanceof A));
+	System.out.println("a2 instanceof B: " + (a2 instanceof B));
+	System.out.println("a2 instanceof C: " + (a2 instanceof C));
+	System.out.println("a3 instanceof A: " + (a3 instanceof A));
+	System.out.println("a3 instanceof B: " + (a3 instanceof B));
+	System.out.println("a3 instanceof C: " + (a3 instanceof C));
+	}
+}public class A{
+	public A(){
+		System.out.println("Costruttore di A");
+	}
+}public class B extends A{
+	public B(){
+		System.out.println("Costruttore di B");		
+	}
+}public class Test{
+	public static void main(String[] args){
+		B b = new B();
+	}
+}/* Programma che contiene la definizione
+   della classe Persona */
+public class Persona{
+	String nome;
+	String cognome;
+	
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+	
+	public void setCognome(String cognome){
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public void setMatricola(String matricola){
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		Studente s = new Studente();
+		s.setNome("Mauro");
+		s.setCognome("Bogliaccino");
+		s.setMatricola("123456");
+		System.out.println("Nome: " + s.getNome());
+		System.out.println("Cognome: " + s.getCognome());
+		System.out.println("Matricola: " + s.getMatricola());		
+	}
+}package esempio;
+
+public class ToStringTest {
+
+	public static void main(String[] args) {
+		Oggetto o = new Oggetto();
+		System.out.println(o.toString());
+	}
+
+}
+package esempio;
+
+public class Oggetto implements Comparable {
+	private int i = 100;
+
+	public String toString() {
+		// return "Il mio oggetto. " + super.toString();
+		return "Il mio oggetto contiene " + i;
+	}
+	
+	public void setI(int newI) {
+		i = newI;
+	}
+	
+	public int getI() {
+		return i;
+	}
+
+	public int compareTo(Object o) {
+		// CAST: Object viene forzato ad Oggetto
+		Oggetto og = (Oggetto)o;
+		if (i < og.getI()) {
+			return -1; // i minore di og.i
+		} else if (i > og.getI()) {
+			return 1; // i maggior di og.i
+		}
+		return 0; // i uguale a og.i
+	}
+}
+package esempio;
+
+public class OggettoTest {
+
+	public static void stampa(int i) {
+		System.out.print("Sono ");
+		if (i > 0) {
+			System.out.print("maggiore");
+		}
+		if (i < 0) {
+			System.out.print("minore");
+		}
+		if (i == 0) {
+			System.out.print("uguale");
+		}
+		System.out.println(" rispetto all'oggetto passato");
+	}
+	
+	public static void main(String[] args) {
+		Oggetto o1 = new Oggetto();
+		Oggetto o2 = new Oggetto();
+		o2.setI(200);
+		Oggetto o3 = new Oggetto();
+		o3.setI(0);
+		Oggetto o4 = new Oggetto();
+		
+		stampa(o1.compareTo(o2)); // 100 - 200
+		stampa(o1.compareTo(o3)); // 100 - 0
+		stampa(o1.compareTo(o4)); // 100 - 100
+	}
+
+}
+public interface CostantiMatematiche {
+	
+	public double PI = 3.14;
+	
+	public double E = 2.71;
+}public class TestCostanti1 {
+	public static void main(String[] args) {
+		System.out.println(CostantiMatematiche.PI);
+		System.out.println(CostantiMatematiche.E);		
+	}
+}public class TestCostanti2 implements CostantiMatematiche{
+	public static void main(String[] args) {
+		System.out.println(PI);
+		System.out.println(E);		
+	}
+}package equals;
+
+import java.time.*;
+import java.util.Objects;
+
+public class Employee
+{
+   private String name;
+   private double salary;
+   private LocalDate hireDay;
+
+   public Employee(String name, double salary, int year, int month, int day)
+   {
+      this.name = name;
+      this.salary = salary;
+      hireDay = LocalDate.of(year, month, day);
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public double getSalary()
+   {
+      return salary;
+   }
+
+   public LocalDate getHireDay()
+   {
+      return hireDay;
+   }
+
+   public void raiseSalary(double byPercent)
+   {
+      double raise = salary * byPercent / 100;
+      salary += raise;
+   }
+
+   public boolean equals(Object otherObject)
+   {
+      // a quick test to see if the objects are identical
+      if (this == otherObject) return true;
+
+      // must return false if the explicit parameter is null
+      if (otherObject == null) return false;
+
+      // if the classes don't match, they can't be equal
+      if (getClass() != otherObject.getClass()) return false;
+
+      // now we know otherObject is a non-null Employee
+      Employee other = (Employee) otherObject;
+
+      // test whether the fields have identical values
+      return Objects.equals(name, other.name) && salary == other.salary && Objects.equals(hireDay, other.hireDay);
+   }
+
+   public int hashCode()
+   {
+      return Objects.hash(name, salary, hireDay); 
+   }
+
+   public String toString()
+   {
+      return getClass().getName() + "[name=" + name + ",salary=" + salary + ",hireDay=" + hireDay
+            + "]";
+   }
+}
+package equals;
+
+/**
+ * This program demonstrates the equals method.
+ * @version 1.12 2012-01-26
+ * @author Cay Horstmann
+ */
+public class EqualsTest
+{
+   public static void main(String[] args)
+   {
+      Employee alice1 = new Employee("Alice Adams", 75000, 1987, 12, 15);
+      Employee alice2 = alice1;
+      Employee alice3 = new Employee("Alice Adams", 75000, 1987, 12, 15);
+      Employee bob = new Employee("Bob Brandson", 50000, 1989, 10, 1);
+
+      System.out.println("alice1 == alice2: " + (alice1 == alice2));
+
+      System.out.println("alice1 == alice3: " + (alice1 == alice3));
+
+      System.out.println("alice1.equals(alice3): " + alice1.equals(alice3));
+
+      System.out.println("alice1.equals(bob): " + alice1.equals(bob));
+
+      System.out.println("bob.toString(): " + bob);
+
+      Manager carl = new Manager("Carl Cracker", 80000, 1987, 12, 15);
+      Manager boss = new Manager("Carl Cracker", 80000, 1987, 12, 15);
+      boss.setBonus(5000);
+      System.out.println("boss.toString(): " + boss);
+      System.out.println("carl.equals(boss): " + carl.equals(boss));
+      System.out.println("alice1.hashCode(): " + alice1.hashCode());
+      System.out.println("alice3.hashCode(): " + alice3.hashCode());
+      System.out.println("bob.hashCode(): " + bob.hashCode());
+      System.out.println("carl.hashCode(): " + carl.hashCode());
+   }
+}package equals;
+
+public class Manager extends Employee
+{
+   private double bonus;
+
+   public Manager(String name, double salary, int year, int month, int day)
+   {
+      super(name, salary, year, month, day);
+      bonus = 0;
+   }
+
+   public double getSalary()
+   {
+      double baseSalary = super.getSalary();
+      return baseSalary + bonus;
+   }
+
+   public void setBonus(double bonus)
+   {
+      this.bonus = bonus;
+   }
+
+   public boolean equals(Object otherObject)
+   {
+      if (!super.equals(otherObject)) return false;
+      Manager other = (Manager) otherObject;
+      // super.equals checked that this and other belong to the same class
+      return bonus == other.bonus;
+   }
+
+   public int hashCode()
+   {
+      return super.hashCode() + 17 * new Double(bonus).hashCode();
+   }
+
+   public String toString()
+   {
+      return super.toString() + "[bonus=" + bonus + "]";
+   }
+}
+
+public class Test2{
+	
+	public static void main(String[] args){
+		
+		A[] a = new A[3];
+		a[0] = new A();
+		a[1] = new B();
+		a[2] = new C();	
+		for(int i = 0; i < a.length; i++)
+			a[i].prova();	
+	}
+}public class C extends B{
+	
+	public void prova(){
+		System.out.println("prova() di C");
+	}
+}public class A{
+	
+	public void prova(){
+		System.out.println("prova() di A");
+	}
+}public class B extends A{
+	
+	public void prova(){
+		System.out.println("prova() di B");
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		
+		A a1 = new A();
+		A a2 = new B();
+		A a3 = new C();	
+		a1.prova();
+		a2.prova();
+		a3.prova();	
+	}
+}

@@ -1,0 +1,4 @@
+
+ interface Monster {
+	void menace();
+}

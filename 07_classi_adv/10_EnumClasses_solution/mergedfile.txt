@@ -1,0 +1,102 @@
+package com.lynda.javatraining;
+
+import com.lynda.olivepress.olives.OliveJar;
+import com.lynda.olivepress.olives.OliveName;
+
+public class EnumClasses {
+
+	public static void main(String[] args) throws Exception {
+
+		OliveJar jar = new OliveJar();
+		jar.addOlive(OliveName.KALAMATA, 0x000000);
+		jar.addOlive(OliveName.PICHOLINE, 0x000000);
+		jar.addOlive(OliveName.LIGURIO, 0x000000);
+		jar.reportOlives();
+	}
+	
+}
+package com.lynda.olivepress.olives;
+
+public class Olive {
+	public static final long BLACK = 0x000000;
+	
+	public OliveName oliveName;
+	public long color = BLACK;
+	
+	public Olive() {
+	}
+
+	public Olive(OliveName oliveName) {
+		this.oliveName = oliveName;
+	}
+	
+	public Olive(OliveName oliveName, long color) {
+		this(oliveName);
+		this.color = color;
+	}
+	
+	public String toString() {
+		return "name: " + this.oliveName + ": " + "color: " +  this.color;
+	}
+
+}
+package com.lynda.olivepress.olives;
+
+import java.util.ArrayList;
+
+public class OliveJar {
+
+	public ArrayList<Olive> olives;
+	
+	{
+		System.out.println("initializing...");
+		olives = new ArrayList<>();
+		olives.add(new Olive(OliveName.GOLDEN, 0xDA9100));
+	}
+	
+	public OliveJar() {
+		System.out.println("Constructor...");
+	}
+	
+	public OliveJar(int nOlives, OliveName oliveName, long color) {
+		for (int i = 1; i <= nOlives; i++) {
+			olives.add(new Olive(oliveName, color));
+		}
+	}
+
+	public void addOlive(OliveName oliveName, long color) {
+		olives.add(new Olive(oliveName, color));
+	}
+	
+	public void reportOlives() {
+		
+		new Object() {
+			public void open() {
+				System.out.println("Twist, twist, twist...");
+				System.out.println("Pop!");
+			}
+		} .open();
+		
+		for (Olive o : olives) {
+			System.out.println("It's a " + o.oliveName + " olive!!");
+		}
+	}
+	
+}
+package com.lynda.olivepress.olives;
+
+public enum OliveName {
+	KALAMATA("Kalamata"), LIGURIO("Ligurio"), 
+	PICHOLINE("Picholine"), GOLDEN("Golden");
+	
+	private String nameAsString;
+	
+	private OliveName(String nameAsString) {
+		this.nameAsString = nameAsString;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nameAsString;
+	}
+}

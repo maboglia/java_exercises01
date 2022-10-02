@@ -1,0 +1,7 @@
+Object
+  |
+  +- Persona
+        |
+        +- Studente
+              |
+              +- StudenteIngegneria

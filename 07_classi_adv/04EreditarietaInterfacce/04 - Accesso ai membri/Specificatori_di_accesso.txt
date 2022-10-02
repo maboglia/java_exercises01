@@ -1,0 +1,14 @@
+1. public.                I membri pubblici non soffrono restrizioni. Chiunque
+                          puo' accedervi, da qualsiasi punto del software.
+2. private.               I membri privati possono essere sfruttati solo ed
+                          esclusivamente all'interno della classe che li
+                          definisce. Una sottoclasse non puo' accedere ai membri
+                          privati della sua superclasse.
+3. protected.             I membri protetti sono simili a quelli privati, con
+                          l'eccezione che le sottoclassi e le classi appartenenti
+                          al medesimo pacchetto possono accedervi liberamente.
+4. nessuno specificatore. L'assenza di specificatore porta ad una condizione
+                          mista. Il membro si comporta come se fosse pubblico
+                          nei confronti di tutte le classi contenute nello
+                          stesso pacchetto, mentre appare privato all'esterno
+                          di esso.

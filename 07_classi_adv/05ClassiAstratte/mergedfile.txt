@@ -1,0 +1,554 @@
+public class Rettangolo extends Figura {
+	
+	private int altezza, larghezza;
+	
+	public Rettangolo(String nome, char c, int larghezza, int altezza) {
+		super(nome, c);
+		this.altezza = altezza;
+		this.larghezza = larghezza;
+	}
+	
+	public Rettangolo(String nome, int larghezza, int altezza) {
+		super(nome, 'c');
+		this.altezza = altezza;
+		this.larghezza = larghezza;
+	}
+	
+	public void ridimensiona(double scala) {
+		altezza *= scala;
+		larghezza *= scala;
+	}
+	
+	public void disegna() {
+		for(int i = 0; i < altezza; ++i) {
+			for(int j = 0; j < larghezza; ++j) {
+				System.out.print(c);
+			}
+			System.out.print("\n");
+		}
+	}
+	
+	public int getAltezza() {
+		return altezza;
+	}
+	
+	public int getLarghezza() {
+		return larghezza;
+	}
+	
+	@Override
+	public String toString() {
+		String ss;
+		if(altezza == larghezza)
+			ss = new String("Nome: " + nome + " Carattere: " + c + " Lato: " + altezza);
+		else {
+			ss = new String("Nome: " + nome + " Carattere: " + c + " Altezza: " + altezza + " Larghezza: " + larghezza);
+		}
+		return ss;
+	}
+	
+	@Override 
+	public boolean equals(Object obj) {
+		if (getClass() == obj.getClass()) {
+			Rettangolo r = (Rettangolo)obj;
+			if( this.altezza == r.getAltezza()  && this.larghezza == r.getLarghezza())
+				return true;
+			else 
+				return false;
+		}
+		return false;
+	}
+}
+
+
+public abstract class Operando extends Espressione {
+
+//	public int valuta() {
+//		return 0;
+//	}
+
+}
+
+
+public class Costante extends Operando {
+
+  private int valore;
+  
+  public Costante(int v){
+  	valore = v;
+  }
+  
+  public int valuta(){
+  	return valore;
+  }
+
+  public String stampa(){
+  	return Integer.toString(valore);
+  	//return ""+valore;
+  	
+  	//return (new StringBuffer((new String("")))).append(valore).toString();
+  }
+}
+
+
+public class Somma extends Operatore {
+  public Somma(Espressione prima, Espressione seconda) {
+  	super(prima,seconda);
+  }
+
+  public int valuta(){
+  	return primo.valuta()+secondo.valuta();
+  }
+  
+  public String stampa(){
+  	return "("+primo.stampa()+"+"+secondo.stampa()+")";
+  }
+
+}
+import junit.framework.TestCase;
+
+public class TestOperazioni extends TestCase {
+
+	public void testEspressione1(){
+		Espressione e;
+		// costruisco l'espressione...
+		
+		Costante tre = new Costante(3);
+		Variabile x = new Variabile(1);
+		Costante due = new Costante(2);
+		
+		Somma piu = new Somma(x,due);
+		Prodotto per = new Prodotto(tre,piu);
+		
+		e = per;
+		
+		int valore = e.valuta();
+		
+		assertEquals(9,valore);
+		
+		x.assegna(2);
+		
+		valore = e.valuta();
+		
+		assertEquals(12,valore);
+		
+	}
+	
+	public void testStampa(){
+		Espressione e;
+		// costruisco l'espressione...
+		
+		Costante tre = new Costante(3);
+		Variabile x = new Variabile("x",1);
+		Costante due = new Costante(2);
+		
+		Somma piu = new Somma(x,due);
+		Prodotto per = new Prodotto(tre,piu);
+		
+		e = per;
+		
+		String espressione = e.stampa();
+		
+		assertEquals("(3*(x+2))",espressione);
+	}
+}
+
+public abstract class Operatore extends Espressione {
+ 
+	Espressione primo;
+	Espressione secondo;
+	
+	Operatore(Espressione a, Espressione b){
+		primo = a;
+		secondo = b;
+	}
+}
+
+
+public abstract class Espressione {
+  public abstract int valuta();
+
+  public abstract String stampa();
+}
+import junit.framework.TestCase;
+
+
+public class TestOperandi extends TestCase {
+
+	public TestOperandi(String arg0) {
+		super(arg0);
+	}
+	
+	public void testCostante(){
+		
+		Costante c = new Costante(3);
+		
+		assertEquals(3,c.valuta());
+		
+	}
+	
+	public void testVariabile(){
+		
+		Variabile v = new Variabile(1);
+		
+		assertEquals(1,v.valuta());
+		
+		v.assegna(2);
+		
+		assertEquals(2,v.valuta());
+	}
+	
+	public void testOperandi(){
+		
+		Costante c = new Costante(3);
+		
+		Variabile v = new Variabile(2);
+		
+		Operando op1 = c;
+		
+		Operando op2 = v;
+		
+		assertEquals(3,op1.valuta());
+		assertEquals(2,op2.valuta());
+	}
+	
+	public void testEsempio(){
+		
+		Espressione e = 
+			new Prodotto(
+				new Costante(3),
+				new Somma(
+					new Variabile(1),
+					new Costante(2)));
+		
+		assertEquals(9,e.valuta());
+	}
+
+}
+/*
+ * Created on 21-mag-2003
+ *
+ * To change the template for this generated file go to
+ * Window>Preferences>Java>Code Generation>Code and Comments
+ */
+
+public class Prodotto extends Operatore {
+  public Prodotto(Espressione prima, Espressione seconda) {
+  	super(prima,seconda);
+  }
+
+  public int valuta(){
+  	return primo.valuta()*secondo.valuta();
+  }
+
+  public String stampa(){
+  	return "("+primo.stampa()+"*"+secondo.stampa()+")";
+  }
+}
+
+
+public class Variabile extends Operando {
+  private int valore;
+private String nome;
+  
+  public Variabile(int valore){
+  	this.valore = valore; 
+  }
+  
+  public Variabile(String nome, int valore){
+  	this.valore = valore; 
+  	this.nome = nome;
+  }
+  
+  public int valuta(){
+  	return valore;
+  }
+
+  public void assegna(int i) {
+	valore = i;
+  }
+
+  public String stampa(){
+  	return nome;
+  }
+
+}
+abstract class Figura {
+	protected String nome;
+	protected char c;
+	abstract public void ridimensiona(double scala);
+	abstract public void disegna();
+
+	public Figura(String nome, char c) {
+		this.nome = nome;
+		this.c = c;
+	}
+	
+	public Figura(String nome) {
+		this.nome = nome;
+		this.c = '#';
+	}
+}
+package com.example.java.model;
+
+public class Ligurian extends Olive {
+
+    public Ligurian() {
+        super(OliveName.LIGURIAN, OliveColor.BLACK, 5);
+    }
+
+    @Override
+    public String getOrigin() {
+        return "Italy";
+    }
+}
+package com.example.java.model;
+
+public abstract class Olive {
+
+    private OliveName name;
+    private OliveColor color;
+    private int oil;
+
+    public Olive(OliveName name, OliveColor color, int oil) {
+        this.name = name;
+        this.color = color;
+        this.oil = oil;
+    }
+
+    public OliveName getName() {
+        return name;
+    }
+
+    public void setName(OliveName name) {
+        this.name = name;
+    }
+
+    public OliveColor getColor() {
+        return color;
+    }
+
+    public void setColor(OliveColor color) {
+        this.color = color;
+    }
+
+    public int crush() {
+        String msg = name + ", from " + getOrigin() +
+                ": " + oil + " units";
+        System.out.println(msg);
+        return oil;
+    }
+
+    public void setOil(int oil) {
+        this.oil = oil;
+    }
+
+    public abstract String getOrigin();
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
+
+}
+package com.example.java.model;
+
+public enum OliveColor {
+
+    PURPLE("Purple", 0x2E0854), BLACK("Black", 0x000000), GREEN("Green", 0x00FF00);
+
+    String name;
+    long color;
+
+    OliveColor(String name, long color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+package com.example.java.model;
+
+public class Kalamata extends Olive {
+
+    public Kalamata() {
+        super(OliveName.KALAMATA, OliveColor.PURPLE, 2);
+    }
+
+    @Override
+    public String getOrigin() {
+        return "Greece";
+    }
+}
+package com.example.java.model;
+
+public enum OliveName {
+    KALAMATA("Kalamata"), LIGURIAN("Ligurian");
+
+    private String name;
+
+    OliveName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+package com.example.java;
+
+import com.example.java.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Olive> olives = new ArrayList<>();
+        olives.add(new Kalamata());
+        olives.add(new Kalamata());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+        olives.add(new Ligurian());
+
+        OlivePress press = new OlivePress();
+        int totalOil = press.getOil(olives);
+
+        System.out.println("You got " + totalOil + " units of oil");
+
+    }
+
+}
+package com.example.java;
+
+import com.example.java.model.Olive;
+
+import java.util.List;
+
+public class OlivePress {
+
+	public int getOil(List<Olive> olives) {
+
+		int totalOil = 0;
+		for (Olive o : olives) {
+			totalOil += o.crush();
+		}
+
+		return totalOil;
+
+	}
+
+}
+package abstractClasses;
+
+import java.time.*;
+
+public class Employee extends Person
+{
+   private double salary;
+   private LocalDate hireDay;
+
+   public Employee(String name, double salary, int year, int month, int day)
+   {
+      super(name);
+      this.salary = salary;
+      hireDay = LocalDate.of(year, month, day);
+   }
+
+   public double getSalary()
+   {
+      return salary;
+   }
+
+   public LocalDate getHireDay()
+   {
+      return hireDay;
+   }
+
+   public String getDescription()
+   {
+      return String.format("an employee with a salary of $%.2f", salary);
+   }
+
+   public void raiseSalary(double byPercent)
+   {
+      double raise = salary * byPercent / 100;
+      salary += raise;
+   }
+}
+package abstractClasses;
+
+public class Student extends Person
+{
+   private String major;
+
+   /**
+    * @param nama the student's name
+    * @param major the student's major
+    */
+   public Student(String name, String major)
+   {
+      // pass n to superclass constructor
+      super(name);
+      this.major = major;
+   }
+
+   public String getDescription()
+   {
+      return "a student majoring in " + major;
+   }
+}
+package abstractClasses;
+
+public abstract class Person
+{
+   public abstract String getDescription();
+   private String name;
+
+   public Person(String name)
+   {
+      this.name = name;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+}
+package abstractClasses;
+
+/**
+ * This program demonstrates abstract classes.
+ * @version 1.01 2004-02-21
+ * @author Cay Horstmann
+ */
+public class PersonTest
+{
+   public static void main(String[] args)
+   {
+      Person[] people = new Person[2];
+
+      // fill the people array with Student and Employee objects
+      people[0] = new Employee("Harry Hacker", 50000, 1989, 10, 1);
+      people[1] = new Student("Maria Morris", "computer science");
+
+      // print out names and descriptions of all Person objects
+      for (Person p : people)
+         System.out.println(p.getName() + ", " + p.getDescription());
+   }
+}public class Quadrato extends Rettangolo {
+	public Quadrato(String nome, char c, int lato) {
+		super(nome, c, lato, lato);
+	}
+	
+	public Quadrato(String nome, int lato) {
+		super(nome, lato, lato);
+	}
+}

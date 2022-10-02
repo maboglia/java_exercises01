@@ -1,0 +1,135 @@
+package it.bogliaccino.mostri.interfacce;
+
+public interface Mostruoso {
+	void spaventa();
+}
+package it.bogliaccino.mostri.interfacce;
+
+public interface MostroPericoloso {
+	void distruggi();
+}
+package it.bogliaccino.mostri.interfacce;
+
+public interface Letale {
+	void uccidi();
+}
+package it.bogliaccino.mostri;
+
+import it.bogliaccino.mostri.interfacce.Letale;
+import it.bogliaccino.mostri.interfacce.MostroPericoloso;
+
+public class Drago implements MostroPericoloso, Letale{
+	
+	
+	String nome = null;	
+	public Drago(String nome) {
+		
+		this.nome = nome;
+		System.out.println("ti spiezzo in due!!");
+	}
+
+	@Override
+	public void distruggi() {
+		System.out.println("Ora ti distruggo!!!");
+		
+	}
+
+	@Override
+	public void uccidi() {
+		System.out.println("Ora ti uccido al brucio!!!");
+		
+	}
+}
+package it.bogliaccino.mostri;
+
+public class CheOrrore {
+
+	public static void main(String[] args) {
+		
+		Drago ivandrago = new Drago("ivandrago");
+		Vampiro vampirla = new Vampiro("darcula");
+		Troll troll = new Troll("quella carezza della sera");
+		
+		
+		ivandrago.distruggi();
+		vampirla.spaventa();
+		vampirla.uccidi();
+		troll.spaventa();
+
+	}
+
+}
+package it.bogliaccino.mostri;
+
+import it.bogliaccino.mostri.interfacce.Letale;
+import it.bogliaccino.mostri.interfacce.Mostruoso;
+
+public class Vampiro implements Mostruoso, Letale {
+
+	
+	
+	String nome = null;	
+	public Vampiro(String nome) {
+		
+		this.nome = nome;
+	}
+
+	
+	@Override
+	public void uccidi() {
+		System.out.println("Io uccido succhiandoti il sangue!!!");
+		
+	}
+
+	@Override
+	public void spaventa() {
+		System.out.println("Io spavento mostrandoti i denti pieni di sangue!!!");
+		
+		
+	}
+
+}
+package it.bogliaccino.mostri;
+
+import it.bogliaccino.mostri.interfacce.Mostruoso;
+
+public class Troll implements Mostruoso{
+
+	
+	
+	String nome = null;	
+	public Troll(String nome) {
+		
+		this.nome = nome;
+	}
+
+	
+	@Override
+	public void spaventa() {
+		
+		System.out.println("BUUUH!!!");
+		
+	}
+
+}
+package it.bogliaccino.varargs;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		System.out.println(calcola_media(2, 4, 8, 18, 16, 45, 97));
+
+	}
+
+	public static int calcola_media(int... i) {
+		
+		int totale = 0;
+			
+			for ( int x : i )
+				totale += x;
+		
+		return totale / i.length;
+	}
+
+}

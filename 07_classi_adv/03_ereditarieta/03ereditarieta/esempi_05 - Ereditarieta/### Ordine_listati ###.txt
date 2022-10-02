@@ -1,0 +1,28 @@
+************************************************
+
+                ##### ##### #####
+                #   # #   # #   #
+                #   # #   # #   #
+                #   # #   # #####
+                #   # #   # #
+                #   # #   # #
+                ##### ##### #
+
+************************************************
+Programmazione ad oggetti
+Tutore: Sergio Porcu
+http://sergioporcu.altervista.org/oop.htm
+************************************************
+L'ereditarieta'
+************************************************
+01 - Sottocartella 01 -> Scatola.java
+02 - Sottocartella 01 -> ScatolaPesante.java
+03 - Sottocartella 01 -> UsoScatole.java
+04 - Sottocartella 02 -> Scatola.java
+05 - Sottocartella 02 -> ScatolaPesante.java
+06 - Sottocartella 02 -> ScatolaTara.java
+07 - Sottocartella 03 -> Triangolo.java
+08 - Sottocartella 03 -> Triangolo3D.java
+09 - Sottocartella 03 -> Polimorfismo.java
+10 - Sottocartella 04 -> FiguraGeometrica.java
+************************************************

@@ -1,0 +1,46 @@
+/* Programma che contiene la definizione
+   della classe Persona */
+public class Persona{
+	String nome;
+	String cognome;
+	
+	public void setNome(String nome){
+		this.nome = nome;
+	}
+	
+	public void setCognome(String cognome){
+		this.cognome = cognome;
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getCognome(){
+		return cognome;
+	}
+}/* Programma contenente la classe Studente,
+   che eredita da Persona */
+public class Studente extends Persona{
+	
+	String matricola;
+	
+	public void setMatricola(String matricola){
+		this.matricola = matricola;
+	}
+	
+	public String getMatricola(){
+		return matricola;
+	}
+}public class Test{
+	
+	public static void main(String[] args){
+		Studente s = new Studente();
+		s.setNome("Mauro");
+		s.setCognome("Bogliaccino");
+		s.setMatricola("123456");
+		System.out.println("Nome: " + s.getNome());
+		System.out.println("Cognome: " + s.getCognome());
+		System.out.println("Matricola: " + s.getMatricola());		
+	}
+}

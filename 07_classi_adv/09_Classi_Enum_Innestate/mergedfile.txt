@@ -1,0 +1,210 @@
+package model;
+
+/**
+ * Created by marcuser on 31/01/19.
+ */
+public class Frutta {
+}
+package model;
+
+/**
+ * Created by marcuser on 01/02/19.
+ */
+public enum Ruolo {
+    PORTIERE, DIFENSORE,CENTROCAMPISTA,ATTACCANTE;
+}
+package model;
+
+import java.util.ArrayList;
+
+/**
+ * Created by marcuser on 01/02/19.
+ */
+public class Squadra {
+
+    public ArrayList<Giocatore> giocatori;
+
+    {
+        System.out.println("inizializza squadra");
+        giocatori = new ArrayList<>();
+        giocatori.add(new Giocatore("Buffone",Ruolo.PORTIERE, (byte) 1));
+    }
+
+    public void addGiocatore(String n, Ruolo ruolo, int i) {
+
+        giocatori.add(new Giocatore(n,ruolo, (byte) 1));
+
+    }
+
+    public void reportSquadra() {
+
+        new Object() {
+            public void open() {
+                System.out.println("La squadra scende in campo con una formazione...");
+                System.out.println("Super!");
+            }
+        } .open();
+
+        for (Giocatore g : giocatori) {
+            System.out.println(g.getNumero() + " " + g.getNome() + " giocatore!!");
+        }
+    }
+}
+package model;
+
+/**
+ * Created by marcuser on 31/01/19.
+ */
+public class Studente {
+}
+package model;
+
+/**
+ * Created by marcuser on 01/02/19.
+ */
+public class Giocatore {
+
+    private String nome;
+    private Ruolo ruolo;
+    private byte numero;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Ruolo getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
+
+    public byte getNumero() {
+        return numero;
+    }
+
+    public void setNumero(byte numero) {
+        this.numero = numero;
+    }
+
+    public Giocatore(String nome, Ruolo ruolo, byte numero) {
+        this.nome = nome;
+        this.ruolo = ruolo;
+        this.numero = numero;
+    }
+
+}
+package classi01.innestate;
+
+import java.util.ArrayList;
+
+/**
+ * Created by marcuser on 31/01/19.
+ */
+public class Classe01Innestata {
+
+
+    public ArrayList<Studente> studenti;
+
+    {
+        System.out.println("inizializzazione");
+        studenti = new ArrayList<>();
+        studenti.add(new Studente("Test", 0xDA9100));
+    }
+
+    public Classe01Innestata() {
+        System.out.println("Costruttore");
+    }
+
+    public Classe01Innestata(int nStudenti, String studente, long matricola) {
+        for (int i = 1; i <= nStudenti; i++) {
+            studenti.add(new Studente(studente, matricola));
+        }
+    }
+
+    public void addStudente(String studente, long matricola) {
+        studenti.add(new Studente(studente, matricola));
+    } 
+
+    public void reportStudenti() {
+        class ClasseInterna {
+            public void open() {
+                System.out.println("Sonola classe interna...");
+                System.out.println("Ciao!");
+            }
+        }
+        new ClasseInterna().open();
+
+        for (Studente o : studenti) {
+            System.out.println("E' lo studente " + o.studente + " a rispondere!!");
+        }
+    }
+
+
+    class Studente {
+
+        public static final long MATRICOLA = 0x000001;
+
+        public String studente;
+        public long matricola = MATRICOLA;
+
+        public Studente() {
+        }
+
+        public Studente(String studente) {
+            this.studente = studente;
+        }
+
+        public Studente(String studente, long matricola) {
+            this(studente);
+            this.matricola = matricola;
+        }
+
+        public String toString() {
+            return "name: " + this.studente + ": " + "matricola: " +  this.matricola;
+        }
+
+    }
+
+
+}
+package classi01.innestate;
+
+import model.Ruolo;
+import model.Squadra;
+
+public class EnumClasses {
+
+	public static void main(String[] args) throws Exception {
+
+		Squadra jar = new Squadra();
+		jar.addGiocatore("Messi",Ruolo.ATTACCANTE, 10);
+		jar.addGiocatore("Modric",Ruolo.CENTROCAMPISTA, 8);
+		jar.addGiocatore("",Ruolo.DIFENSORE, 3);
+		jar.reportSquadra();
+	}
+	
+}
+package view;
+
+import classi01.innestate.Classe01Innestata;
+
+/**
+ * Created by marcuser on 31/01/19.
+ */
+public class ProvaClasseInnestata {
+    public static void main(String[] args) {
+
+        Classe01Innestata nested =new Classe01Innestata();
+
+        nested.addStudente("mauro", 0xFCCCC);
+
+        nested.reportStudenti();
+
+    }
+}
